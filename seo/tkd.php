@@ -1,27 +1,11 @@
 <?php
+
 /*
-Plugin Name: JUST TKD
-Plugin URI: https://www.wordpresszhan.com/
-Description: TKD ( tilte, keywords, description ) , 默认情况 wordpress 没有 keywords, 和 descripton ，那就增加一个。
-Author: wpzhan.com 
-Version: 0.0.1
-Author URI: https://www.wordpresszhan.com 
-*/
+ * TKD -- title, keywords, description
+ * 
+ *
+ */
 
-
-
-
-if ( version_compare( get_bloginfo('version'), '5.0', '>=' ) ) {
-	add_filter('use_block_editor_for_post', '__return_false'); // 切换回之前的编辑器
-	remove_action( 'wp_enqueue_scripts', 'wp_common_block_scripts_and_styles' ); // 禁止前端加载样式文件
-}else{
-	// 4.9.8 < WP < 5.0 插件形式集成Gutenberg古腾堡编辑器
-	add_filter('gutenberg_can_edit_post_type', '__return_false');
-}
-
-
-//error_reporting(E_ERROR | E_WARNING | E_PARSE);
-//error_reporting(E_ALL);
 
 // 增加 TDK 面板
 add_action('add_meta_boxes', 'wptdk_add_box');
@@ -59,7 +43,6 @@ function wptdk_show_html() {
 	echo '<h3>关键词</h3>';
 	echo '<input style="width: 100%" type="text" id="seo_keywords" name="seo_keywords" value="' . esc_attr($value) . '" size="25" />';
 	echo '</label> ';
-
 
 	$value = get_post_meta($post->ID, 'seo_description', true);
 	echo '<label for="seo_description">';
